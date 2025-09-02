@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тестовая страница - Юридический чат</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        
+        p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .test-button {
+            background: white;
+            color: #667eea;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
+        }
+        
+        .test-button:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Юридическая консультация</h1>
+        <p>Добро пожаловать на тестовую страницу юридического чат-бота</p>
+        <p>Нажмите на кнопку чата в правом нижнем углу для начала консультации</p>
+        
+        <button class="test-button" onclick="testChat()">Тест чата</button>
+        <button class="test-button" onclick="checkServer()">Проверить сервер</button>
+    </div>
+
+    <!-- Встраиваем виджет -->
+    <script>
+        // Загружаем виджет
+        function loadWidget() {
+            const script = document.createElement('script');
+            script.src = 'widget.js';
+            document.head.appendChild(script);
+        }
+        
+        // Тест чата
+        function testChat() {
+            if (typeof toggleChat === 'function') {
+                toggleChat();
+            } else {
+                alert('Виджет не загружен. Убедитесь, что сервер запущен.');
+            }
+        }
+        
+        // Проверка сервера
+        async function checkServer() {
+            try {
+                const response = await fetch('http://localhost:5000/');
+                if (response.ok) {
+                    alert('✅ Сервер работает!');
+                } else {
+                    alert('❌ Сервер не отвечает');
+                }
+            } catch (error) {
+                alert('❌ Ошибка подключения к серверу: ' + error.message);
+            }
+        }
+        
+        // Загружаем виджет при загрузке страницы
+        window.onload = function() {
+            loadWidget();
+        };
+    </script>
+</body>
+</html>
